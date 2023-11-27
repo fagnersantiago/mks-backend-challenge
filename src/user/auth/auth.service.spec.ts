@@ -1,7 +1,6 @@
 import { AuthService } from './auth.service';
-import { InMemoryUserRepository } from '../infra/database/prisma/repositories/inMemoryRepository/user-InMemory.repository';
-import { Rule } from '../entitie/user';
-import { InvalidUsernameOrPassword } from '../errors/invalid-user-or-password';
+import { InMemoryUserRepository } from '../infra/typeorm/repositories/inMemoryRepository/user-InMemory.repository';
+import { InvalidUsernameOrPassword } from 'src/Error/invalidUserOrPassword';
 import { SingDTO } from './dto/signDto';
 
 const jwtServiceMock = {
@@ -26,13 +25,11 @@ describe('AuthService', () => {
       userId: '1',
       userName: 'testuser',
       password: '$2b$10$1234567890',
-      rule: Rule.USER,
     };
 
     const expectedPayload = {
       userId: user.userId,
       username: user.userName,
-      role: user.rule,
     };
 
     jwtServiceMock.sign.mockReturnValue('mocked-access-token');

@@ -1,8 +1,6 @@
-/* eslint-disable prettier/prettier */
 import { UsersService } from './users.service';
-import { InMemoryUserRepository } from '../infra/database/prisma/repositories/inMemoryRepository/user-InMemory.repository';
-import { UserAlreadyExists } from '../errors/user-already-exists.error';
-import { PasswordValidator } from '../errors/password-validator';
+import { InMemoryUserRepository } from '../infra/typeorm/repositories/inMemoryRepository/user-InMemory.repository';
+import { UserAlreadyExists } from 'src/Error/user.already.exists.error';
 
 let inMemoryUserRepository: InMemoryUserRepository;
 let createUserService: UsersService;
@@ -35,5 +33,4 @@ describe(' Create User', () => {
       });
     }).rejects.toBeInstanceOf(UserAlreadyExists);
   });
-
-
+});

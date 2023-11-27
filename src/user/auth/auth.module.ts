@@ -4,7 +4,7 @@ import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from '../create/users.module';
-import { DatabaseModule } from '../infra/database/prisma/database.module';
+import { DatabaseModule } from '../infra/typeorm/database.module';
 import { LocalStrategy } from './strategies/local.strategies';
 import { JwtStrategy } from './strategies/jwt.strategies';
 import { RedisModule } from 'nestjs-redis';
@@ -16,7 +16,7 @@ import { RedisModule } from 'nestjs-redis';
     }),
 
     RedisModule.register({
-      url: 'localhost',
+      host: 'localhost',
       port: 6379,
     }),
 

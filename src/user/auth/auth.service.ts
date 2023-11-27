@@ -4,6 +4,8 @@ import { RedisService } from 'nestjs-redis';
 import { Session } from 'fastify-secure-session';
 import { UserRepository } from '../infra/typeorm/repositories/user.respository';
 import { SingDTO } from './dto/signDto';
+import { InvalidUsernameOrPassword } from 'src/Error/invalidUserOrPassword';
+import { compare } from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -44,7 +46,6 @@ export class AuthService {
     const payload = {
       userId: user.userId,
       username: user.userName,
-      role: user.rule,
     };
 
     return {
@@ -52,7 +53,6 @@ export class AuthService {
         user: {
           userId: user.userId,
           username: user.userName,
-          role: user.rule,
         },
         token: this.jwtService.sign(payload),
       },
