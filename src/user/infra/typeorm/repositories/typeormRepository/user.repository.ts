@@ -6,10 +6,13 @@ import { CreateUserDto } from 'src/user/dto/create-user.dto';
 
 @Injectable()
 export class PrismaUserRepository implements UserRepository {
-  constructor(private repository: Repository<User>) {}
+  private repository: Repository<User>;
+  constructor() {
+    this.repository = data;
+  }
 
   async create(data: CreateUserDto): Promise<User | null> {
-    const userCreated = this.repository.create({
+    const userCreated = await this.repository.create({
       userName: data.userName,
       password: data.password,
     });

@@ -6,6 +6,15 @@ services:
     ports:
       - "6379:6379"
 
+  database:
+    image: "postgres:latest"
+    environment:
+      POSTGRES_USER: ${DB_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
+      POSTGRES_DB: ${DB_DATABASE:-movie_catalog}
+    ports:
+      - "5432:5432"
+
   app:
     build:
       context: .
@@ -13,6 +22,14 @@ services:
     ports:
       - "3000:3000"
     depends_on:
+      - database
       - redis
     environment:
       - NODE_ENV=production
+      - DB_TYPE=postgres
+      - DB_HOST=localhost
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=password
+      - DB_DATABASE=movie_catalog
+      - DB_SYNCHRONIZE=false
